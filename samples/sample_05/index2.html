@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            var app;
+            var updateStatusCount = 0;
+            document.addEventListener("DOMContentLoaded", function(event) {
+                app = new Vue({
+                    el: '#app',
+                    data: {
+                        counter: 0,
+                        unrelatedCounter: 0
+                    },
+                    methods: {
+                        increment: function() {
+                            this.counter++;
+                        },
+                        decrement: function() {
+                            this.counter--;
+                        },
+                        updateStatus: function() {
+                            // can't use a counter in the vue object or I make an infinite loop, oops.
+                            // so no "this"
+                            window.updateStatusCount++; 
+                            document.getElementById("runCount").innerHTML = window.updateStatusCount;
+                            return this.counter > 5 ? "Greater than 5" : "Not greater than 5";
+                        },
+                        unrelatedIncrement: function() {
+                            this.unrelatedCounter++;
+                        },
+                        unrelatedDecrement: function() {
+                            this.unrelatedCounter--;
+                        }
+                    }
+                  })
+            });
+        </script>
+        <title>Computed values - Better way</title>
+    </head>
+    <body>
+        <div id="app">
+            <button @click="increment">Increment</button>
+            <button @click="decrement">Decrement</button>
+            <p>Counter: {{ counter }}</p>
+            <p>Status: {{ updateStatus() }}</p>
+            <p>Count of times updateStatus has been run <span id="runCount"></span></p>
+            <br><br><br><br>
+            Unrelated properties:<br>
+            <button @click="unrelatedIncrement">Increment</button>
+            <button @click="unrelatedDecrement">Decrement</button>
+            <p>Unrelated counter: {{ unrelatedCounter }}</p>
+        </div>
+        <br><br><br>
+        This has the drawback of running updateStatus any time any property changes, even unrelated ones.
+    </body>
+</html>

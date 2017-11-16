@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            var app;
+            document.addEventListener("DOMContentLoaded", function(event) {
+                app = new Vue({
+                    el: '#app',
+                    data: {
+                        show: true
+                    }
+                  })
+            });
+        </script>
+        <title>Conditional rendering</title>
+    </head>
+    <body>
+        <div id="app">
+            <div v-if="show">
+                <p>A bunch of stuff</p>
+                <p>can go in this one div</p>
+            </div>
+            <div v-else>
+                <p>You shouldn't be able to see me and the other div at the same time</p>
+            </div>
+            <template v-if="show">
+                <p>Sadly those other ways have to use a wrapping DOM node, this template method doesn't</p>
+                <p>Hooray</p>
+            </template>
+            <br><br><br>
+            <p v-show="show">You can use v-show instead of v-if for cases when you don't want the node removed from the DOM, but generally, fewer nodes = better performance overall</p>
+            <button @click="show = !show;">Toggle</button>
+        </div>
+        <br><br><br>
+
+    </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            var app;
+            document.addEventListener("DOMContentLoaded", function(event) {
+                //globally registered
+                Vue.component("team-row", {
+                    props: [
+                        'teamName', 'teamStatus', 'idx', 'str'
+                    ],
+                    template: '<li>{{ idx }}. - {{ teamName | capitalize }} ({{ teamStatus }}) - ({{str}}) <button @click="cheer">Cheer</button><button @click="jeer">Jeer</button></li>',
+                    // all other bits of a component like methods and computed can go in here, the only caveat being that data must be a function not an object
+                    // you want to make sure the data function doesn't just return references to the same object or different components will 
+                    //muck with eachother's private data bits.
+                    methods: {
+                        cheer: function() {
+                            this.$emit('cheer', this.idx);
+                        },
+                        jeer: function() {
+                            this.$emit('jeer', this.idx);
+                        }
+                    },
+                    filters: {
+                        capitalize: function (value) {
+                            if (value == null) {
+                                return "";
+                            }
+                            return value.toUpperCase();
+                        }
+                    }
+                });
+
+                var teamHeading = {
+                    props: ['team'],
+                    template: '<div><h1>{{team.name}}</h1>{{ team.status }}</div>'
+                }
+
+                var teamHeading2 = {
+                    props: ['name', 'status', 'cheers', 'jeers'],
+                    template: '<div><h1>{{name}}</h1>{{ status }} - cheers: {{cheers}} - jeers: {{jeers}}</div>'
+                }
+
+                app = new Vue({
+                    el: '#app',
+                    components: {
+                        'team-heading': teamHeading,
+                        'team-heading-two': teamHeading2
+                    },
+                    data: {
+                        teams: [
+                            {name: "Rockies", status: "yay", cheers: 100, jeers: 0},
+                            {name: "Yankies", status: "boo", cheers: -100, jeers: 100},
+                            {name: "Mets", status: "Are they even a team?", cheers: 0, jeers: 10},
+                        ]
+                    },
+                    methods: {
+                        cheer: function(teamIndex) {
+                            var team = this.teams[teamIndex];
+                            if (team.name === "Mets") {
+                                alert("Not possible that anyone could cheer for them. " + team.status);
+                                return;
+                            }
+                            this.teams[teamIndex].cheers++;
+                        },
+                        jeer: function(teamIndex) {
+                            this.teams[teamIndex].jeers++;
+                        }
+                    }
+                  })
+            });
+        </script>
+        <title>Components</title>
+    </head>
+    <body>
+        <div id="app">
+            <ul>
+                <team-row v-for="(team, idx) in teams" 
+                    v-bind:idx="idx" 
+                    v-bind:team-name="team.name" 
+                    :team-status="team.status" 
+                    str="hello"
+                    v-on:cheer="cheer"
+                    @jeer="jeer"
+                    :key="team.name"></team-row>
+            </ul>
+            <ul>
+                <team-heading v-for="team in teams" :team="team" :key="team.name"></team-heading>
+            </ul>
+            <ul>
+                <team-heading-two v-for="team in teams" v-bind="team" :key="team.name"></team-heading-two>
+            </ul>
+        </div>
+        <br><br><br>
+        Data flows one way, from the parent component down into the child component. Changing it in the child does not change it in the parent. 
+        (Unless you pass a reference type like an object or array, then you will mutate parent state, so don't do that)<br>
+        There is a .sync modifier that explicitly permits children mutating the parent, but that is considered a 
+        maintenance issue and ought to be avoided where possible.<br><br>
+        You can also specify props this way and set expected types:<br>
+        <pre>
+        props: {
+            // basic type check (`null` means accept any type)
+            propA: Number,
+            propB: String
+        }
+    </pre>
+    Class and style attributes are smart, they will merge values if both the parent and child component set them.<br><br>
+    I also threw in a capitalize filter.
+    </body>
+</html>

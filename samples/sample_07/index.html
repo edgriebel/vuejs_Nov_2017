@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            var app;
+            document.addEventListener("DOMContentLoaded", function(event) {
+                app = new Vue({
+                    el: '#app',
+                    data: {
+                        teams: [
+                            {name: "Rockies", status: "yay"},
+                            {name: "Yankies", status: "boo"},
+                            {name: "Mets", status: "Are they even a team?"},
+                        ]
+                    }
+                  })
+            });
+        </script>
+        <title>Rendering lists</title>
+    </head>
+    <body>
+        <div id="app">
+            <ul>
+                <li v-for="team in teams">{{ team.name }} ({{ team.status }})</li>
+            </ul>
+            <ul>
+                <li v-for="(team, idx) in teams">{{ idx }}. - {{ team.name }} ({{ team.status }})</li>
+            </ul>
+            <template v-for="team in teams">
+                <h1>{{team.name}}</h1>
+                {{ team.status }}
+            </template>
+            <br><br><br><br>
+            <template>
+                hi mom                
+            </template>
+        </div>
+        <br><br><br>
+        An odd thing, I thought the template tag should not render its content directly, but it does in IE, Opera, Chrome, and FF. Anyone know why?
+    </body>
+</html>

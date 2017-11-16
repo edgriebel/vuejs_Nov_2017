@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            var app;
+            document.addEventListener("DOMContentLoaded", function(event) {
+                app = new Vue({
+                    el: '#app',
+                    data: {
+                        message: "Mets stink!"
+                    },
+                    methods: {
+                        getMessage: function() {
+                            return this.message;
+                        }
+                    }
+                });
+            });
+        </script>
+        <title>Binding to the results of a method</title>
+    </head>
+    <body>
+        <div id="app">
+            {{ getMessage() }}
+        </div>
+        <br><br><br>
+        If you give a method and a data property the same name, Vue can't handle it.<br><br>
+        You can't use {{}} inside of html attributes like so:<br>
+        &lt;a href="{{ theLink }}"&gt;<br>
+        instead use<br>
+        &lt;a v-bind:href="theLink"&gt;<br>
+        or the shorthand for v-bind like so:<br>
+        &lt;a :href="theLink"&gt;<br>
+
+    </body>
+</html>

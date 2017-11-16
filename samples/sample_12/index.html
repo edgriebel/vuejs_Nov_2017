@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/vue"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+            // I borrowed this from https://github.com/axios/axios
+            var app;
+            document.addEventListener("DOMContentLoaded", function(event) {
+                Vue.component("team-row", {
+                    props: ['team'],
+                    template: '<div>{{ team.name }} ({{ team.status }})</div>',
+                });
+
+                app = new Vue({
+                    el: '#app',
+                    data: {
+                        teams: []
+                    },
+                    methods: {
+                        getTeams: function() {
+                            var self = this;
+                            axios.get('fakedata.json')
+                                .then(function (response) {
+                                    self.teams = response.data.teams;
+                                })
+                                .catch(function (error) {
+                                    alert("oops");
+                                });
+                        }
+                    }
+                });
+            });
+        </script>
+        <title>Loading data with Axios</title>
+    </head>
+    <body>
+        <div id="app">
+            <team-row v-for="team in teams" :key="team.name" :team="team"></team-row>
+            <button @click="getTeams" v-if="teams.length === 0">Get team data</button>
+        </div>
+        <br><br><br>
+    </body>
+</html>

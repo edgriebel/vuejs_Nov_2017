@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            var app;
+            document.addEventListener("DOMContentLoaded", function(event) {
+                app = new Vue({
+                    el: '#app',
+                    data: {
+                        counter: 0,
+                        status: ""
+                    },
+                    methods: {
+                        increment: function() {
+                            this.counter++;
+                            this.status = this.counter > 5 ? "Greater than 5" : "Not greater than 5";
+                        },
+                        decrement: function() {
+                            this.counter--;
+                            this.status = this.counter > 5 ? "Greater than 5" : "Not greater than 5";
+                        }
+                    }
+                  })
+            });
+        </script>
+        <title>Computed values - Bad way</title>
+    </head>
+    <body>
+        <div id="app">
+            <button @click="increment">Increment</button>
+            <button @click="decrement">Decrement</button>
+            <p>Counter: {{ counter }}</p>
+            <p>Status: {{ status }}</p>
+        </div>
+        <br><br><br>
+    </body>
+</html>

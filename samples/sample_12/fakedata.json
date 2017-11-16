@@ -1,0 +1,7 @@
+{
+    "teams": [
+        {"name": "Rockies", "status": "yay", "cheers": 100, "jeers": 0},
+        {"name": "Yankies", "status": "boo", "cheers": -100, "jeers": 100},
+        {"name": "Mets", "status": "Are they even a team?", "cheers": 0, "jeers": 10}
+    ]
+}

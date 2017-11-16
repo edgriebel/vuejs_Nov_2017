@@ -1,0 +1,117 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="revealjs/css/reveal.css">
+		<link rel="stylesheet" href="revealjs/css/theme/beige.css">
+		<title>VueJS presentation for Rochester JS User Group November 2017</title>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Vue JS 2</h1>
+					<br><br>
+					<h4>Nathan Westerman</h4>
+					<h4><a href="https://github.com/RochesterJS/vuejs_Nov_2017">https://github.com/RochesterJS/vuejs_Nov_2017</a></h4>
+				</section>
+
+				<section>
+					<h3>The JQuery of UI frameworks</h3>
+					<h7>And I mean that as a good thing George</h7>
+				</section>
+
+				<section>
+					<h4>What is Vue?</h4>
+					<div style="text-align: left;">
+						"Vue is a progressive framework for building user interfaces ... designed from the ground up to be incrementally adoptable."<br><br>
+						"The core library is focused on the view layer only, and is easy to pick up and integrate with other libraries or existing projects."
+					</div>
+				</section>
+
+				<section>
+					<h6>Features</h6>
+					<ul>
+						<li>Low barrier to entry</li>
+						<li>Resusable components</li>
+						<li>Directives (built in like v-once, v-if, v-else, v-show, v-for, v-html, v-on, v-bind or custom directives)</li>
+						<li>Filters</li>
+						<li>Mixins</li>
+						<li>By default escapes html to prevent cross site scripting when using the {{}} string interpolation</li>
+						<li>Focus on the core library, with concerns such as routing and global state management handled by companion libraries</li>
+					</ul>
+				</section>
+				<section>
+					<h6>More features</h6>
+					<ul>
+						<li>One way data flow by default lowers maintenance</li>
+						<li>Babel plugin allows the use of JSX if you really want</li>
+						<li>Virtual DOM, only updates the real DOM if a change actually changes something</li>
+						<li>DOM update event queue, attempts to queue up updates to the DOM</li>
+						<li>Server side rendering</li>
+						<li>Animations</li>
+						<li>OOOOODLES and BOOODLES more!!!!!1111!!!</li>
+					</ul>
+				</section>
+
+				<section>
+					<h7>Popularity according to StackOverflow trends...</h7>
+					<img width="95%" src="/presentation/images/popularity.svg" />
+				</section>
+
+				<section>
+						The Vue team has created a great document with a detailed comparison to other frameworks <a target="new" href="https://vuejs.org/v2/guide/comparison.html">here</a>.<br><br><br>
+						My readme links to a performance comparison benchmark giving Vue and edge on React and Angular in many common scenarios.
+				</section>
+
+				<section>
+					<h6>Samples</h6>
+					<ul>
+						<li><a target="new" href="/samples/sample_01/index.html">Hello World!</a></li>
+						<li><a target="new" href="/samples/sample_02/index.html">Simple two way binding</a></li>
+						<li><a target="new" href="/samples/sample_03/index.html">Binding to the results of a method</a></li>
+						<li><a target="new" href="/samples/sample_04/index.html">Simple event handling</a></li>
+						<li>Computed values <a target="new" href="/samples/sample_05/index.html">(Bad way)</a> - <a target="new" href="/samples/sample_05/index2.html">(Better way)</a> - <a target="new" href="/samples/sample_05/index3.html">(Good way)</a> - <a target="new" href="/samples/sample_05/index4.html">(Alternative)</a></li>
+						<li><a target="new" href="/samples/sample_06/index.html">Conditional rendering</a></li>
+						<li><a target="new" href="/samples/sample_07/index.html">Rendering lists</a></li>
+					</ul>
+				</section>
+				<section>
+					<h6>More samples</h6>
+					<ul>
+						<li><a target="new" href="/samples/sample_08/index.html">Components</a></li>
+						<li><a target="new" href="/samples/sample_09/index.html">Routing with Vue-Router</a></li>
+						<li><a target="new" href="/samples/sample_10/index.html">State Management with Vuex</a></li>
+						<li><a target="new" href="/samples/sample_11/index.html">Loading data with Vue-Resource</a> (No longer the "official" way)</li>
+						<li><a target="new" href="/samples/sample_12/index.html">Loading data with Axios</a> (The way all the cool kids are doing it)</li>
+						<li><a target="new" href="https://vuejs.org/v2/guide/transitions.html">Transitions and animations</a></li>
+						<li><a target="new" href="https://vuejs.org/v2/guide/single-file-components.html">.Vue files</a> (single file components) - (<a target="new" href="https://codesandbox.io/s/o29j95wx9">SandBox</a>)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h6>Lifecycle</h6>
+					<div style="height: 500px; overflow:scroll;">
+						<div style="width:600px;height:1519px">
+							<img src="https://vuejs.org/images/lifecycle.png" />
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h6>Notes</h6>
+					Has a built in template compiler, but it's faster to precompile at build time.
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+				</section>
+			</div>
+		</div>
+		<script src="revealjs/js/reveal.js"></script>
+		<script>
+			Reveal.initialize();
+		</script>
+	</body>
+</html>

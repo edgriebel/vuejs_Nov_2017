@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/vue"></script>
+        <script src="https://unpkg.com/vuex@2.0.0"></script>
+        <script>
+            // I borrowed this from https://router.vuejs.org/en/essentials/getting-started.html
+            var app;
+            var store;
+            document.addEventListener("DOMContentLoaded", function(event) {
+                store = new Vuex.Store({
+                    state: {
+                        teams: [
+                            {name: "Rockies", status: "yay", cheers: 100, jeers: 0},
+                            {name: "Yankies", status: "boo", cheers: -100, jeers: 100},
+                            {name: "Mets", status: "Are they even a team?", cheers: 0, jeers: 10},
+                        ]
+                    },
+                    mutations: {
+                      cheer: function (state, payload) {
+                        state.teams[payload.idx].cheers++;
+                      },
+                      jeer: function (state, payload) {
+                        state.teams[payload.idx].jeers++;
+                      }
+                    }
+                });
+
+                var cheersAndJeers = {
+                    props: ['idx'],
+                    template: '<div><h1>{{name}} - cheers {{ cheers }} - jeers {{ jeers }}</h1></div>',
+                    computed: {
+                        name: function() {
+                            return this.$store.state.teams[this.idx].name;
+                        },
+                        cheers: function() {
+                            return this.$store.state.teams[this.idx].cheers;
+                        },
+                        jeers: function() {
+                            return this.$store.state.teams[this.idx].jeers;
+                        }
+                    },
+                };
+
+                var jeers = {
+                    props: ['idx'],
+                    template: '<div><h1><button @click="jeer">Jeer at</button> {{name}}</h1></div>',
+                    computed: {
+                        name: function() {
+                            return this.$store.state.teams[this.idx].name;
+                        }
+                    },
+                    methods: {
+                        jeer: function() {
+                            store.commit("jeer", {idx: this.idx})
+                        }
+                    }
+                };
+
+                var cheers = {
+                    props: ['idx'],
+                    template: '<div><h1><button @click="cheer">Cheer for</button> {{name}}</h1></div>',
+                    computed: {
+                        name: function() {
+                            return this.$store.state.teams[this.idx].name;
+                        }
+                    },
+                    methods: {
+                        cheer: function() {
+                            store.commit("cheer", {idx: this.idx})
+                        }
+                    }
+                };
+
+                app = new Vue({
+                    el: '#app',
+                    components: {
+                        'cheers': cheers,
+                        'jeers': jeers,
+                        'cheers-jeers': cheersAndJeers
+                    },
+                    store
+                });
+            });
+        </script>
+        <title>State Management with Vuex</title>
+    </head>
+    <body>
+        <div id="app">
+            <ul><cheers-jeers v-for="(team,idx) in this.$store.state.teams" :key="team.name" :idx="idx"></cheers-jeers></ul>
+            <ul><jeers v-for="(team,idx) in this.$store.state.teams" :key="team.name" :idx="idx"></jeers></ul>
+            <ul><cheers v-for="(team,idx) in this.$store.state.teams" :key="team.name" :idx="idx"></cheers></ul>
+        </div>
+        <br><br><br>
+        Vuex stores are reactive. When Vue components retrieve state from it, they will reactively and efficiently update if the store's state changes.
+        <br><br><br>
+        You cannot directly mutate the store's state. The only way to change a store's state is by explicitly committing mutations. This ensures every state change leaves a track-able record, and enables tooling that helps us better understand our applications.
+    </body>
+</html>

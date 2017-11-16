@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            var app;
+            document.addEventListener("DOMContentLoaded", function(event) {
+                app = new Vue({
+                    el: '#app',
+                    data: {
+                        message: 'Hello Vue.js!',
+                        clickCount: 0,
+                        x: 0,
+                        y: 0,
+                        total: 0
+                    },
+                    methods: {
+                        reverseMessage: function (event) {
+                            this.message = this.message.split('').reverse().join('');
+                            this.clickCount++;
+                        },
+                        updateMousePosition: function (event) {
+                            this.x = event.clientX;
+                            this.y = event.clientY;
+                        },
+                        increment: function (incrementAmount, event) {
+                            this.total += incrementAmount;
+                        },
+                        keyup: function(event) {
+                            alert('key up, and Mets still stink');
+                        }
+                    }
+                  })
+            });
+        </script>
+        <title>Simple event handling</title>
+    </head>
+    <body>
+        <div id="app">
+            <div v-on:mousemove="updateMousePosition">
+                <p>{{ message }}</p>
+                <button v-on:click="reverseMessage">Reverse Message</button>
+                <button v-on:click="increment(clickCount, $event)">Increment total by {{ clickCount }}</button>
+                <p>You clicked reverse {{clickCount }} times</p>
+                <p>Total: {{ total }}</p>
+                <p v-on:mousemove.stop="">DEAD SPOT (.stop = StopPropagation, .prevent (preventDefault) is also a popular one)(Can also chain the modifiers)</p>
+                <p>Mouse position x:{{ x }}, y: {{ y }}</p>
+                <br><br><br>
+                Any key should trigger an alert:<br>
+                <input v-on:keyup="keyup" /><br><br>
+                (Only Enter, space, or d should trigger an alert.)(Not the shorthand)<br>
+                <input @keyup.enter.space.68="keyup" /><br>
+                (@ was shorthand for v-on:)
+            </div>
+        </div>
+        <br><br><br>
+    </body>
+</html>

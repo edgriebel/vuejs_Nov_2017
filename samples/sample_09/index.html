@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/vue"></script>
+        <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+        <script>
+            // I borrowed this from https://router.vuejs.org/en/essentials/getting-started.html
+            var app;
+            document.addEventListener("DOMContentLoaded", function(event) {
+                var foo = { template: '<div>pretend this is some kind of content, maybe a login form</div>' };
+                var bar = { template: '<div>blah blah blahblah blah blahblah blah blah<br>blah blah blahblah blah blahblah blah blah<br></div>' };
+
+                var routes = [
+                    { path: '/foo', component: foo },
+                    { path: '/bar', component: bar }
+                ];
+
+                router = new VueRouter({
+                    routes // short for `routes: routes`
+                });
+
+                app = new Vue({
+                    router
+                }).$mount('#app')
+            });
+        </script>
+        <title>Routing with Vue-Router</title>
+    </head>
+    <body>
+        <div id="app">
+            <h1>Hello App!</h1>
+            <p>
+              <!-- use router-link component for navigation. -->
+              <!-- specify the link by passing the `to` prop. -->
+              <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
+              <router-link to="/foo">Go to Foo</router-link>
+              <router-link to="/bar">Go to Bar</router-link>
+            </p>
+            <!-- route outlet -->
+            <!-- component matched by the route will render here -->
+            <router-view></router-view>
+        </div>
+        <br><br><br>
+
+    </body>
+</html>

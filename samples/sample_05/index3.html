@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/vue"></script>
+        <script>
+            var app;
+            var updateStatusCount = 0;
+            document.addEventListener("DOMContentLoaded", function(event) {
+                app = new Vue({
+                    el: '#app',
+                    data: {
+                        counter: 0,
+                        unrelatedCounter: 0
+                    },
+                    computed: {
+                        // Vue will look through the methods in here and only call them when the properties 
+                        // they depend on have changed.
+                        updateStatus: function() {
+                            window.updateStatusCount++; 
+                            document.getElementById("runCount").innerHTML = window.updateStatusCount;
+                            return this.counter > 5 ? "Greater than 5" : "Not greater than 5";
+                        }
+                    },
+                    methods: {
+                        increment: function() {
+                            this.counter++;
+                        },
+                        decrement: function() {
+                            this.counter--;
+                        },
+                        unrelatedIncrement: function() {
+                            this.unrelatedCounter++;
+                        },
+                        unrelatedDecrement: function() {
+                            this.unrelatedCounter--;
+                        }
+                    }
+                  })
+            });
+        </script>
+        <title>Computed values - Good way</title>
+    </head>
+    <body>
+        <div id="app">
+            <button @click="increment">Increment</button>
+            <button @click="decrement">Decrement</button>
+            <p>Counter: {{ counter }}</p>
+            <p>Status: {{ updateStatus }} <br> (note I removed the ())</p>
+            <p>Count of times updateStatus has been run <span id="runCount"></span></p>
+            <br><br><br><br>
+            Unrelated properties:<br>
+            <button @click="unrelatedIncrement">Increment</button>
+            <button @click="unrelatedDecrement">Decrement</button>
+            <p>Unrelated counter: {{ unrelatedCounter }}</p>
+        </div>
+        <br><br><br>
+        Now the updateStatus method is only called when its dependencies change.
+    </body>
+</html>
